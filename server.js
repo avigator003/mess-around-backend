@@ -28,7 +28,12 @@ const corsOptions = {
   };
   
 app.use(cors(corsOptions));
-
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
 // parse JSON and url-encoded query
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())

@@ -28,14 +28,13 @@ const User = new Schema({
 // create new User document
 User.statics.create = function (password,
     name,
-    emailAddress,
+    email,
     phoneNumber,
     city,
     state,
     aadharNumber,
     phoneNumber,
     messRegistered,
-
     admin) {
     const encrypted = crypto.createHmac('sha1', config.secret)
         .update(password)

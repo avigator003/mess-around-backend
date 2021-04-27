@@ -31,12 +31,8 @@ var transporter = nodemailer.createTransport(sesTransport({
 exports.register = (req, res) => {
     const { password,
         name,
-        userName,
-        emailAddress,
+        email,
         phoneNumber,
-        upscAttempts,
-        additionalSubjects,
-
         admin } = req.body
 
     // let admin = req.body.admin ? true:false
@@ -49,12 +45,9 @@ exports.register = (req, res) => {
         } else {
             return User.create(password,
                 name,
-                userName,
-                emailAddress,
+                email,
                 phoneNumber,
-                upscAttempts,
-                additionalSubjects,
-
+               
                 admin,
 
             )
@@ -69,7 +62,7 @@ exports.register = (req, res) => {
 
         //var url = "https://precedentonline.com" +'/verified/?token='+user._id;
 
-        var userEmail = user.emailAddress;
+        var userEmail = user.email;
         var emailText = `<p>Hi ${user.firstName}</p><p>Please <a href="${"http://localhost:8000"}">click here</a> to verify your account and start using our portal.</p><p>Regards</p>Precedent Team`
 
 
@@ -122,7 +115,7 @@ exports.register = (req, res) => {
     }
 
     // check username duplication
-    User.findOneByEmailAddress(emailAddress)
+    User.findOneByEmailAddress(email)
         .then(create)
         .then(count)
         .then(assign)
@@ -139,11 +132,16 @@ exports.register = (req, res) => {
 */
 
 exports.login = (req, res) => {
+    console.log("hye login",req.body)
     const { password,
-        firstName,
-        lastName,
-        emailAddress,
-        phoneNumber } = req.body
+        name,
+        email,
+        city,
+        state,
+        aadharNumber,
+        phoneNumber,
+        messRegistered,
+        } = req.body
     const secret = req.app.get('jwt-secret')
 
     // check the user info & generate the jwt
@@ -195,7 +193,7 @@ exports.login = (req, res) => {
     }
 
     // find the user
-    User.findOneByEmailAddress(emailAddress)
+    User.findOneByEmailAddress(email)
         .then(check)
         .then(respond)
         .catch(onError)

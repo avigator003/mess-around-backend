@@ -6,10 +6,10 @@ router.post('/assign-admin/:username', controller.assignAdmin)
 router.post('/resetpassword', controller.resetpassword)
 router.post('/setpassword', controller.setpassword)
 router.post('/verify', controller.verify)
-router.get('/delete/:id', controller.deleteUser)
+router.get('/delete/:id', controller.deleteMess)
 router.get('/count', controller.count)
-router.post('/update/:id', controller.updateUser)
-router.get('/view/:id', controller.viewUser)
+router.post('/update/:id', controller.updateMess)
+router.get('/view/:id', controller.viewMess)
 
 
 
